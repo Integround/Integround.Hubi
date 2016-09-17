@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceDefinition name="Integround.Hubi" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
+  <WorkerRole name="Integround.Hubi.WorkerRole" vmsize="ExtraSmall">
+    <Runtime executionContext="elevated" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="StorageConnectionString" />
+      <Setting name="Configuration" />
+    </ConfigurationSettings>
+    <!-- To use a certificate for https endpoints, fill in the name & thumbprint and uncomment this section: -->
+    <!--<Certificates>
+      <Certificate name="my-cerificate-name" storeLocation="LocalMachine" storeName="My" />
+    </Certificates>-->
+    <Endpoints>
+      <InputEndpoint name="HttpInterface.Endpoint" protocol="http" port="80" />
+      <!--<InputEndpoint name="HttpInterface.EndpointSSL" protocol="https" port="443" certificate="my-cerificate-name" />-->
+    </Endpoints>
+  </WorkerRole>
+</ServiceDefinition>

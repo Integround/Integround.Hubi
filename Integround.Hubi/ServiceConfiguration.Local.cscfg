@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Integround.Hubi" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="4" osVersion="*" schemaVersion="2015-04.2.6">
+  <Role name="Integround.Hubi.WorkerRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <!-- TODO: Insert the storace connection string here: -->
+      <Setting name="StorageConnectionString" value="" />
+      <!-- TODO: Insert the process configuration here: -->
+      <Setting name="Configuration" value="" />
+    </ConfigurationSettings>
+    <!-- To use a certificate for https endpoints, fill in the name & thumbprint and uncomment this section: -->
+    <!--<Certificates>
+      <Certificate name="my-cerificate-name" thumbprint="" thumbprintAlgorithm="sha1" />
+    </Certificates>-->
+  </Role>
+</ServiceConfiguration>
