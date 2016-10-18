@@ -17,6 +17,7 @@ using Integround.Components.Log.LogEntries;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Integround.Hubi.WorkerRole.Models;
+using Integround.Components.Http;
 
 namespace Integround.Hubi.WorkerRole
 {
@@ -165,7 +166,9 @@ namespace Integround.Hubi.WorkerRole
 
                 // Add the base directories to the catalog:
                 catalog.Catalogs.Add(new DirectoryCatalog(".", "*.dll"));
-                catalog.Catalogs.Add(new DirectoryCatalog(AssemblyPath, "*.dll"));
+
+                if (Directory.Exists(AssemblyPath))
+                    catalog.Catalogs.Add(new DirectoryCatalog(AssemblyPath, "*.dll"));
 
                 // Add each process directory to the catalog (if they exist):
                 foreach (var process in _configuration.Processes)
@@ -180,7 +183,7 @@ namespace Integround.Hubi.WorkerRole
                 var container = new CompositionContainer(catalog);
 
                 // HTTP interface service should be populated where needed:
-                container.ComposeExportedValue("HttpInterfaceService", _httpInterface);
+                container.ComposeExportedValue("IHttpInterfaceService", _httpInterface as IHttpInterfaceService);
                 container.ComposeParts(this);
             }
             catch (ReflectionTypeLoadException ex)
