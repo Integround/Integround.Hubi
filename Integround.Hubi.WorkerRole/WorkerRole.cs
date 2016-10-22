@@ -23,6 +23,7 @@ namespace Integround.Hubi.WorkerRole
 {
     public class WorkerRole : RoleEntryPoint
     {
+        private string Name = RoleEnvironment.CurrentRoleInstance.Id;
         private const string AssemblyPath = "assembly";
 
         private ILogger _log;
@@ -37,7 +38,7 @@ namespace Integround.Hubi.WorkerRole
 
         public override void Run()
         {
-            _log.LogInfo("Integround.Hubi is running.");
+            _log.Info($"{Name}: Running");
 
             try
             {
@@ -85,7 +86,7 @@ namespace Integround.Hubi.WorkerRole
             }
             catch (Exception ex)
             {
-                _log.LogError("Could not initialize the process host service.", ex);
+                _log.Error($"{Name}: Could not initialize the process host service.", ex);
                 return false;
             }
 
@@ -99,12 +100,17 @@ namespace Integround.Hubi.WorkerRole
 
         private void CreateLoggers()
         {
+            // Try to read the logging level:
+            LoggingLevel level;
+            if (!Enum.TryParse(_configuration.GetParameterValue("LoggingLevel"), true, out level))
+                level = LoggingLevel.Info;
+
             var log = new AggregateLogger();
-            log.Add(new TraceLogger());
+            log.Add(new TraceLogger(level));
 
             var token = _configuration.GetParameterValue("LogEntriesLogger.Token");
             if (!string.IsNullOrWhiteSpace(token))
-                log.Add(new LogentriesLogger(token));
+                log.Add(new LogentriesLogger(token, level));
 
             _log = log;
         }
@@ -147,7 +153,7 @@ namespace Integround.Hubi.WorkerRole
             }
             catch (Exception ex)
             {
-                _log.LogError("Could not copy assemblies from the storage account.", ex);
+                _log.Error($"{Name}: Could not copy assemblies from the storage account.", ex);
             }
         }
 
@@ -155,7 +161,7 @@ namespace Integround.Hubi.WorkerRole
         {
             if ((_configuration.Processes == null) || !_configuration.Processes.Any())
             {
-                _log.LogWarning("No processes configured.");
+                _log.Warning($"{Name}: No processes configured.");
                 return;
             }
 
@@ -191,11 +197,11 @@ namespace Integround.Hubi.WorkerRole
                 var loaderExceptions = ex.LoaderExceptions != null
                     ? string.Join(", ", ex.LoaderExceptions.Select(x => x.Message))
                     : string.Empty;
-                _log.LogError(string.Concat("Could not load process assemblies: ", loaderExceptions), ex);
+                _log.Error($"{Name}: Could not load process assemblies: {loaderExceptions}", ex);
             }
             catch (Exception ex)
             {
-                _log.LogError("Could not load process assemblies.", ex);
+                _log.Error($"{Name}: Could not load process assemblies.", ex);
             }
         }
 
@@ -245,7 +251,7 @@ namespace Integround.Hubi.WorkerRole
                 }
                 catch (Exception ex)
                 {
-                    _log.LogError($"Could not initialize process '{process.Name}'.", ex);
+                    _log.Error($"{Name}: Could not initialize process '{process.Name}'.", ex);
                 }
             }
         }
@@ -260,11 +266,11 @@ namespace Integround.Hubi.WorkerRole
                 var processesToStart = _processes.Where(x => x.Status == ProcessStatus.Started).ToArray();
                 Array.ForEach(processesToStart, x => x.Start());
 
-                _log.LogInfo($"Integround.Hubi started {processesToStart.Length} processes.");
+                _log.Info($"{Name}: Started {processesToStart.Length} processes.");
             }
             catch (Exception ex)
             {
-                _log.LogError("Starting the processes was unsuccessful", ex);
+                _log.Error($"{Name}: Starting the processes was unsuccessful", ex);
                 return false;
             }
 
@@ -293,17 +299,17 @@ namespace Integround.Hubi.WorkerRole
             }
             catch (Exception ex)
             {
-                _log.LogError("Stopping the services was unsuccessful", ex);
+                _log.Error($"{Name}: Stopping the services was unsuccessful", ex);
             }
 
-            _log.LogInfo("Integround.Hubi is stopping.");
+            _log.Info($"{Name}: Stopping");
 
             _cancellationTokenSource.Cancel();
             _runCompleteEvent.WaitOne();
 
             base.OnStop();
 
-            _log.LogInfo("Integround.Hubi has stopped.");
+            _log.Info($"{Name}: Stopped");
         }
 
         private static async Task RunAsync(CancellationToken cancellationToken)

@@ -32,16 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Integround.Components.Core, Version=1.1.0.32118, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
-      <HintPath>..\packages\Integround.Components.Core.1.1.0.32118\lib\net45\Integround.Components.Core.dll</HintPath>
+    <Reference Include="Integround.Components.Core, Version=1.2.0.38266, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
+      <HintPath>..\packages\Integround.Components.Core.1.2.0.38266\lib\net45\Integround.Components.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Integround.Components.Core.FlatFile, Version=1.1.0.32118, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
-      <HintPath>..\packages\Integround.Components.Core.1.1.0.32118\lib\net45\Integround.Components.Core.FlatFile.dll</HintPath>
+    <Reference Include="Integround.Components.Core.FlatFile, Version=1.2.0.38266, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
+      <HintPath>..\packages\Integround.Components.Core.1.2.0.38266\lib\net45\Integround.Components.Core.FlatFile.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Integround.Components.Core.Xslt, Version=1.1.0.32118, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
-      <HintPath>..\packages\Integround.Components.Core.1.1.0.32118\lib\net45\Integround.Components.Core.Xslt.dll</HintPath>
+    <Reference Include="Integround.Components.Core.Xslt, Version=1.2.0.38266, Culture=neutral, PublicKeyToken=f6f5c3eed58d1f98, processorArchitecture=MSIL">
+      <HintPath>..\packages\Integround.Components.Core.1.2.0.38266\lib\net45\Integround.Components.Core.Xslt.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Integround.Components.Http.HttpInterface, Version=1.0.1.42223, Culture=neutral, PublicKeyToken=690dddbaa8c6131f, processorArchitecture=MSIL">
@@ -52,8 +52,8 @@
       <HintPath>..\packages\Integround.Components.Http.1.0.1.42223\lib\net45\Integround.Components.Http.RestClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Integround.Components.Log.LogEntries, Version=1.0.0.6733, Culture=neutral, PublicKeyToken=c90cb3f90b4b5a29, processorArchitecture=MSIL">
-      <HintPath>..\packages\Integround.Components.Log.LogEntries.1.0.0.6733\lib\net45\Integround.Components.Log.LogEntries.dll</HintPath>
+    <Reference Include="Integround.Components.Log.LogEntries, Version=1.1.0.42898, Culture=neutral, PublicKeyToken=c90cb3f90b4b5a29, processorArchitecture=MSIL">
+      <HintPath>..\packages\Integround.Components.Log.LogEntries.1.1.0.42898\lib\net45\Integround.Components.Log.LogEntries.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Integround.Json, Version=0.3.5557.20723, Culture=neutral, PublicKeyToken=aa3ba44f69dc8bf1, processorArchitecture=MSIL">
